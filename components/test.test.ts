@@ -1,5 +1,5 @@
-import { assert, test } from "vitest";
+import { assert, it } from 'vitest'
 
-test("my test", () => {
-  assert(2 == 2, "Test test");
-});
+it('my test', () => {
+  assert(2 == 2, 'Test test')
+})
