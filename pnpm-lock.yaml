@@ -8,12 +8,18 @@ dependencies:
   '@nuxt/ui':
     specifier: ^2.13.0
     version: 2.13.0(nuxt@3.10.1)(vite@5.0.12)(vue@3.4.15)
+  '@pinia/nuxt':
+    specifier: ^0.5.1
+    version: 0.5.1(typescript@5.3.3)(vue@3.4.15)
   husky:
     specifier: ^9.0.10
     version: 9.0.10
   nuxt:
     specifier: ^3.10.1
     version: 3.10.1(@types/node@20.11.16)(eslint@8.56.0)(typescript@5.3.3)(vite@5.0.12)
+  pinia:
+    specifier: ^2.1.7
+    version: 2.1.7(typescript@5.3.3)(vue@3.4.15)
   vue:
     specifier: ^3.4.15
     version: 3.4.15(typescript@5.3.3)
@@ -1982,6 +1988,19 @@ packages:
       '@parcel/watcher-win32-arm64': 2.4.0
       '@parcel/watcher-win32-ia32': 2.4.0
       '@parcel/watcher-win32-x64': 2.4.0
+    dev: false
+
+  /@pinia/nuxt@0.5.1(typescript@5.3.3)(vue@3.4.15):
+    resolution: {integrity: sha512-6wT6TqY81n+7/x3Yhf0yfaJVKkZU42AGqOR0T3+UvChcaOJhSma7OWPN64v+ptYlznat+fS1VTwNAcbi2lzHnw==}
+    dependencies:
+      '@nuxt/kit': 3.10.1
+      pinia: 2.1.7(typescript@5.3.3)(vue@3.4.15)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - rollup
+      - supports-color
+      - typescript
+      - vue
     dev: false
 
   /@pkgjs/parseargs@0.11.0:
@@ -6983,6 +7002,24 @@ packages:
   /pify@2.3.0:
     resolution: {integrity: sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==}
     engines: {node: '>=0.10.0'}
+    dev: false
+
+  /pinia@2.1.7(typescript@5.3.3)(vue@3.4.15):
+    resolution: {integrity: sha512-+C2AHFtcFqjPih0zpYuvof37SFxMQ7OEG2zV9jRI12i9BOy3YQVAHwdKtyyc8pDcDyIc33WCIsZaCFWU7WWxGQ==}
+    peerDependencies:
+      '@vue/composition-api': ^1.4.0
+      typescript: '>=4.4.4'
+      vue: ^2.6.14 || ^3.3.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/devtools-api': 6.5.1
+      typescript: 5.3.3
+      vue: 3.4.15(typescript@5.3.3)
+      vue-demi: 0.14.7(vue@3.4.15)
     dev: false
 
   /pirates@4.0.6:

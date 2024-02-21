@@ -15,8 +15,10 @@
   },
   "dependencies": {
     "@nuxt/ui": "^2.13.0",
+    "@pinia/nuxt": "^0.5.1",
     "husky": "^9.0.10",
     "nuxt": "^3.10.1",
+    "pinia": "^2.1.7",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
   },
