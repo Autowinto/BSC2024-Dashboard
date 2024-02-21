@@ -14,6 +14,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@nuxt/ui": "^2.13.0",
     "husky": "^9.0.10",
     "nuxt": "^3.10.1",
     "vue": "^3.4.15",
