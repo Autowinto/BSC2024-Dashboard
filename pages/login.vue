@@ -1,9 +1,9 @@
 <template>
-  <div class="flex min-h-screen min-w-screen place-items-center place-content-center">
+  <div class="flex min-h-screen min-w-screen place-items-center place-content-center bg-gradient-to-tr from-green-500 to-blue-500">
     <UCard>
       <template #header>
         <p class="text-2xl text-center">
-          Meterpreter
+          Power Usage Dashboard
         </p>
       </template>
       <div class=" flex flex-col space-y-2">
