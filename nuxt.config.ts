@@ -5,8 +5,5 @@ export default defineNuxtConfig({
   devServer: {
     port: 8080,
   },
-  colorMode: {
-    preference: 'light',
-  },
 
 })
