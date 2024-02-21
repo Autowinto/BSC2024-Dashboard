@@ -31,11 +31,10 @@ const dropdownItems: DropdownItem[] | DropdownItem[][] = [
 </script>
 
 <template>
-  <div class="flex flex-col flex-grow">
+  <div class="flex flex-col flex-grow min-h-screen">
     <div class="p-4 border-b-2">
       <div class="text-2xl w-48 inline-block">
         Meterpreter
-        {{ }}
       </div>
       <Search class=" w-1/4 inline-flex" />
       <div class="inline-block-flex space-x-4 float-right">
@@ -53,9 +52,9 @@ const dropdownItems: DropdownItem[] | DropdownItem[][] = [
         </UDropdown>
       </div>
     </div>
-    <div class="flex min-h-screen">
+    <div class="flex flex-grow">
       <UVerticalNavigation class="w-48 p-4 border-r-2" :links="navLinks" />
-      <div class="p-3">
+      <div class="p-3 w-full">
         <slot />
       </div>
     </div>

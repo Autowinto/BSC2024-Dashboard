@@ -4,12 +4,7 @@
 <template>
   <div id="wrapper">
     <NuxtLayout>
-      <UCard>
-        <template #header>
-          Meters
-        </template>
-        <UTable />
-      </UCard>
+      <MeterTable />
     </NuxtLayout>
   </div>
 </template>

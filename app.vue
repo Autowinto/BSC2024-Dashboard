@@ -3,7 +3,5 @@ useHead({ title: 'Meterpreter WIP TITLE' })
 </script>
 
 <template>
-  <div>
-    <NuxtPage />
-  </div>
+  <NuxtPage />
 </template>
