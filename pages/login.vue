@@ -7,6 +7,14 @@
         </p>
       </template>
       <div class=" flex flex-col space-y-2">
+        <UFormGroup>
+          <UInput class="pb-2" placeholder="Username" />
+          <UInput class="pb-2" placeholder="Password" />
+          <UButton to="/" class="w-full">
+            Sign In
+          </UButton>
+        </UFormGroup>
+        <UDivider class="pb-12" />
         <div>
           <UButton to="/" class="w-full" variant="outline" color="white">
             <Icon name="logos:google-icon" />
