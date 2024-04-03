@@ -4,7 +4,11 @@
 <template>
   <div id="wrapper">
     <NuxtLayout>
-      <UCard>Testing</UCard>
+      <div>
+        <UCard>
+          <BarChart />
+        </UCard>
+      </div>
     </NuxtLayout>
   </div>
 </template>

@@ -4,7 +4,7 @@
 <template>
   <div id="wrapper">
     <NuxtLayout>
-      <MeterTable />
+      <AreaTable />
     </NuxtLayout>
   </div>
 </template>

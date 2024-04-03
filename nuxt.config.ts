@@ -2,8 +2,8 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxt/test-utils/module', '@nuxt/ui', '@pinia/nuxt'],
+
   devServer: {
     port: 8080,
   },
-
 })
