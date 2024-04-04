@@ -47,7 +47,7 @@ const columns = reactive([{
   editable: true,
 }])
 
-function handleSave(row) {
+function handleSave(row: unknown) {
   console.log(row)
 }
 </script>

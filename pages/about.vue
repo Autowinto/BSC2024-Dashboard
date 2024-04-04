@@ -5,9 +5,7 @@
 <template>
   <div id="wrapper">
     <NuxtLayout>
-      <UCard>
-        This is a power usage dashboard
-      </UCard>
+      This is a power usage dashboard
     </NuxtLayout>
   </div>
 </template>
