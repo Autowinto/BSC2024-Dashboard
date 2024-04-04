@@ -45,51 +45,13 @@ const columns = reactive([{
   key: 'name',
   label: 'Name',
   editable: true,
-}, {
-  key: 'actions',
-  label: 'Actions',
 }])
 
-const dynamicColumns = computed(() => {
-  return columns.filter(column => column.key !== 'actions')
-})
-
-const hasEditableRows = computed(() => {
-  return columns.some(column => column.editable === true)
-})
-
-const showActions = computed(() => {
-  return hasEditableRows
-})
+function handleSave(row) {
+  console.log(row)
+}
 </script>
 
 <template>
-  <UTable :columns="columns" :rows="rows">
-    <template
-      v-if="showActions"
-      #actions-data="{ row }"
-    >
-      <UButtonGroup v-if="!row.isEditing">
-        <UButton v-show="hasEditableRows" square @click="row.isEditing = true">
-          <Icon name="carbon:edit" />
-        </UButton>
-      </UButtonGroup>
-      <UButtonGroup v-else>
-        <UButton square @click="row.isEditing = false">
-          <Icon name="carbon:save" />
-        </UButton>
-      </UButtonGroup>
-    </template>
-
-    <template v-for="(dynamicColumn, index) in dynamicColumns" #[`${dynamicColumn.key}-data`]="{ row, column }" :key="index">
-      <div v-if="column.type === undefined">
-        <div v-if="!row.isEditing || !column.editable">
-          {{ row[column.key] }}
-        </div>
-        <div v-else-if="row.isEditing">
-          <UInput v-model="row[column.key]" />
-        </div>
-      </div>
-    </template>
-  </UTable>
+  <EditableTable :columns="columns" :rows="rows" @save="handleSave" />
 </template>
