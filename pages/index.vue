@@ -1,4 +1,9 @@
 <script setup lang="ts">
+useHead({
+  title: 'Home',
+})
+
+definePageMeta({ alias: '/home' })
 </script>
 
 <template>

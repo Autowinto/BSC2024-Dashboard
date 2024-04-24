@@ -1,3 +1,9 @@
+<script setup lang="ts">
+useHead({
+  title: 'Login',
+})
+</script>
+
 <template>
   <div class="flex min-h-screen min-w-screen place-items-center place-content-center bg-gradient-to-tr from-green-500 to-blue-500">
     <UCard>

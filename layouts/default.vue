@@ -8,5 +8,6 @@
     <Sidebar>
       <slot />
     </Sidebar>
+    <Footer />
   </div>
 </template>

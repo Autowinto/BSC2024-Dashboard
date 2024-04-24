@@ -1,13 +1,13 @@
 <script setup lang="ts">
 useHead({
-  title: 'Areas',
+  title: 'About',
 })
 </script>
 
 <template>
-  <div id="wrapper">
+  <div>
     <NuxtLayout>
-      <AreasTable />
+      Device here
     </NuxtLayout>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-useHead({ title: 'Meterpreter WIP TITLE' })
+useHead({ titleTemplate: '%s - Meterpreter' })
 </script>
 
 <template>
