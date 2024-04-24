@@ -53,5 +53,7 @@ function handleSave(row: unknown) {
 </script>
 
 <template>
-  <EditableTable :columns="columns" :rows="rows" @save="handleSave" />
+  <UCard>
+    <EditableTable :columns="columns" :rows="rows" @save="handleSave" />
+  </UCard>
 </template>

@@ -7,7 +7,9 @@ useHead({
 <template>
   <div id="wrapper">
     <NuxtLayout>
-      This is a power usage dashboard
+      <UCard>
+        This is a power usage dashboard
+      </UCard>
     </NuxtLayout>
   </div>
 </template>

@@ -15,5 +15,7 @@ const columns = reactive([{
 </script>
 
 <template>
-  <EditableTable :columns="columns" :rows="rows" />
+  <UCard>
+    <EditableTable :columns="columns" :rows="rows" />
+  </UCard>
 </template>

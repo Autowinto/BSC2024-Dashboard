@@ -14,10 +14,8 @@ const navLinks: VerticalNavigationLink[] | VerticalNavigationLink[][] = [
 </script>
 
 <template>
-  <div class="flex-grow flex">
-    <UVerticalNavigation class="w-48 p-4 border-r-2" :links="navLinks" />
-    <div class="p-3 w-full">
-      <slot />
-    </div>
+  <div class=" h-full border-r-2">
+    <UVerticalNavigation class="p-4" :links="navLinks" />
+    <slot />
   </div>
 </template>
