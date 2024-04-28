@@ -1,21 +1,39 @@
 <script setup lang="ts">
-const rows = reactive([{
-  id: 'gdfgdfgdf',
-  name: 'Some Device 1',
-}])
+const rows = ref()
 
-const columns = reactive([{
-  key: 'id',
-  label: 'ID',
-}, {
-  key: 'name',
-  label: 'Name',
-  editable: true,
-}])
+const columns = reactive([
+  {
+    key: 'id',
+    label: 'ID',
+  },
+  {
+    key: 'name',
+    label: 'Name',
+    editable: true,
+  },
+  {
+    key: 'expectedWattage',
+    label: 'Expected Wattage',
+  },
+  {
+    key: 'measuredWattage',
+    label: 'Measured Wattage',
+  },
+])
+
+function fetchDevices() {
+  useApi().get('/devices')
+    .then((response) => {
+      rows.value = response.data
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+}
+
+fetchDevices()
 </script>
 
 <template>
-  <UCard>
-    <EditableTable :columns="columns" :rows="rows" />
-  </UCard>
+  <EditableTable :columns="columns" :rows="rows" />
 </template>

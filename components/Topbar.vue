@@ -3,7 +3,7 @@ import type { DropdownItem } from '#ui/types'
 
 const dropdownItems: DropdownItem[] | DropdownItem[][] = [
   [
-    { label: 'Profile' },
+    { label: 'Settings', to: '/settings' },
   ],
   [
     { label: 'Sign Out', to: '/login' },
@@ -30,14 +30,14 @@ function toggleColorMode() {
       <div class="inline-block-flex space-x-4 float-right">
         <div class="inline">
           <UButton variant="ghost" color="black" @click="toggleColorMode">
-            <Icon :name="$colorMode.preference === 'dark' ? 'carbon:sun' : 'carbon:moon'" />
+            <Icon :name="$colorMode.preference === 'dark' ? 'lucide:sun' : 'lucide:moon'" />
           </UButton>
         </div>
 
         <UDropdown :items="dropdownItems">
           <UButton>
-            USER PROFILE NAME HERE
-            <Icon name="carbon:chevron-down" />
+            John Smith
+            <Icon name="lucide:chevron-down" />
           </UButton>
         </UDropdown>
       </div>

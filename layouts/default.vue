@@ -3,14 +3,16 @@
 </script>
 
 <template>
-  <div id="layout-wrapper" class="flex flex-col h-screen bg-gray-200">
-    <Topbar class="bg-white" />
+  <div
+    id="layout-wrapper" class="flex flex-col h-screen"
+  >
+    <Topbar />
     <div class="flex flex-grow">
       <div class="w-48">
-        <Sidebar class="bg-white" />
+        <Sidebar />
       </div>
       <div class="flex-grow">
-        <div class="p-3">
+        <div class="p-3 h-full">
           <slot />
         </div>
       </div>

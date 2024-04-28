@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { DropdownItem } from '#ui/types'
+
 const props = defineProps<Props>()
 
 const emit = defineEmits<{
@@ -6,6 +8,12 @@ const emit = defineEmits<{
 }>()
 
 const { columns, rows } = toRefs(props)
+
+// A ref will never have an undefined value. Alter this so it
+const isLoading = computed(() => {
+  const val = !rows.value || rows.value.length !== 0
+  return val
+})
 
 export interface Column {
   [key: string]: any
@@ -22,7 +30,7 @@ export interface Row {
 }
 
 interface Props {
-  rows: Row[]
+  rows: Row[] | undefined
   columns: Column[]
 }
 
@@ -44,48 +52,70 @@ function emitSave(row: Row) {
 }
 
 function initializeExtraColumns() {
-  if (showActions)
+  if (showActions.value)
     columns.value.push({ key: 'actions' })
+}
+
+function getActions(row: Row) {
+  return [[{
+    label: 'Edit',
+    icon: 'i-lucide-save',
+    click: () => {
+      console.log(row)
+      row.isEditing = true
+    },
+  }]]
+}
+
+function getEditingActions(row: Row) {
+  return [[
+    {
+      label: 'Save',
+      icon: 'i-lucide-square-pen',
+      click: () => {
+        emitSave(row)
+      },
+    },
+  ]]
 }
 
 initializeExtraColumns()
 </script>
 
 <template>
-  <UTable :columns="columns" :rows="rows">
-    <template
-      v-if="showActions"
-      #actions-data="{ row }"
-    >
-      <UButtonGroup v-if="!row.isEditing">
-        <UButton v-show="hasEditableRows" square @click="row.isEditing = true">
-          <Icon name="carbon:edit" />
-        </UButton>
-      </UButtonGroup>
-      <UButtonGroup v-else>
-        <UButton square @click="emitSave(row)">
-          <Icon name="carbon:save" />
-        </UButton>
-      </UButtonGroup>
-    </template>
+  <UCard class="h-full">
+    <UTable :columns="columns" :rows="rows">
+      <template
+        v-if="showActions"
+        #actions-data="{ row }"
+      >
+        <div class="float-right w-8">
+          <UDropdown :items="!row.isEditing ? getActions(row) : getEditingActions(row)">
+            <UButton square variant="ghost">
+              <Icon size="1.5em" name="i-lucide-ellipsis-vertical" />
+            </UButton>
+          </UDropdown>
+        </div>
+      </template>
 
-    <template v-for="(dynamicColumn, index) in dynamicColumns" #[`${dynamicColumn.key}-data`]="{ row, column }" :key="index">
-      <div v-if="column.type === 'number'">
-        <div v-if="!row.isEditing || !column.editable">
-          {{ row[column.key] }}
+      <template v-for="(dynamicColumn, index) in dynamicColumns" #[`${dynamicColumn.key}-data`]="{ row, column }" :key="index">
+        <div v-if="column.type === 'number'">
+          <div v-if="!row.isEditing || !column.editable">
+            {{ row[column.key] }}
+          </div>
+          <div v-else-if="row.isEditing">
+            <UInput v-model="row[column.key]" type="number" />
+          </div>
         </div>
-        <div v-else-if="row.isEditing">
-          <UInput v-model="row[column.key]" type="number" />
+        <div v-if="column.type === undefined || column.type === 'string'">
+          <div v-if="!row.isEditing || !column.editable">
+            {{ row[column.key] }}
+          </div>
+          <div v-else-if="row.isEditing">
+            <UInput v-model="row[column.key]" />
+          </div>
         </div>
-      </div>
-      <div v-if="column.type === undefined || column.type === 'string'">
-        <div v-if="!row.isEditing || !column.editable">
-          {{ row[column.key] }}
-        </div>
-        <div v-else-if="row.isEditing">
-          <UInput v-model="row[column.key]" />
-        </div>
-      </div>
-    </template>
-  </UTable>
+      </template>
+    </UTable>
+  </UCard>
 </template>
