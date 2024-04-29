@@ -4,4 +4,5 @@ useHead({ titleTemplate: '%s - Meterpreter' })
 
 <template>
   <NuxtPage />
+  <AreasCreationModal />
 </template>

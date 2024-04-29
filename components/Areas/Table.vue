@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Row } from '../EditableTable.vue';
+
 const rows = ref([])
 
 const columns = reactive([{
@@ -9,6 +11,10 @@ const columns = reactive([{
   label: 'Name',
   editable: true,
 }])
+
+const page = ref(1)
+const pageSize = ref(10)
+const totalItems = ref(1)
 
 function fetchAreas() {
   useApi().get('/areas', { params: { page: page.value, pageSize: pageSize.value } })
@@ -25,22 +31,41 @@ onMounted(() => {
   fetchAreas()
 })
 
-function handleSave(row: unknown) {
-  console.log(row)
+function handleSave(row: Row) {
+  useApi().put(`/areas/${row.id}`, row)
+    .then(() => {
+      fetchAreas()
+    })
+    .catch((error) => {
+      console.error(error)
+    })
 }
-
-const page = ref(1)
-const pageSize = ref(10)
-const totalItems = ref(1)
 </script>
 
 <template>
-  <UCard>
-    <div class="flex">
-      <USelect v-model="pageSize" class="flex-grow mr-3" :options="[10, 20, 50, 100]" @change="fetchAreas" />
-      <UButton>Create</UButton>
-    </div>
-    <EditableTable :page="page" :page-size="pageSize" :columns="columns" :rows="rows" @save="handleSave" />
-    <UPagination v-model="page" :page-count="pageSize" :total="totalItems" />
-  </UCard>
+  <div>
+    <UCard class="h-full">
+      <div class="flex">
+        <USelect
+          v-model="pageSize"
+          class="flex-grow mr-3"
+          :options="[10, 20, 50, 100]"
+          @change="fetchAreas"
+        />
+      </div>
+      <EditableTable
+        :page="page"
+        :page-size="pageSize"
+        :columns="columns"
+        :rows="rows"
+        @save="handleSave"
+      />
+      <UPagination
+        v-model="page"
+        :page-count="pageSize"
+        :total="totalItems"
+        @update:model-value="fetchAreas"
+      />
+    </UCard>
+  </div>
 </template>
