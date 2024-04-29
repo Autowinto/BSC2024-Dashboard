@@ -6,6 +6,7 @@ const navLinks: VerticalNavigationLink[] | VerticalNavigationLink[][] = [
     { label: 'Home', to: '/' },
     { label: 'Areas', to: '/areas' },
     { label: 'Devices', to: '/devices' },
+    { label: 'Smart Plugs', to: '/smartplugs' },
   ],
   [
     { label: 'About', to: '/about' },
