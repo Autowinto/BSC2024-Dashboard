@@ -76,7 +76,7 @@ function cancelForm() {
   <UCard class="h-full">
     <div class="flex">
       <PageSizeSelector v-model="pageSize" @change="fetchDevices" />
-      <UButton class="ml-auto" @click="isModalOpen = true">
+      <UButton class="ml-auto" variant="outline" @click="isModalOpen = true">
         Add Device
       </UButton>
     </div>
