@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { ChartData } from 'chart.js'
-import { Line } from 'vue-chartjs'
+import type { ChartData } from 'chart.js';
+import { Line } from 'vue-chartjs';
 
 const chartData: ChartData<'line'> = {
   labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
@@ -13,11 +13,10 @@ const chartData: ChartData<'line'> = {
     },
     {
       label: 'Own Measurements',
-      data: [54, 31, 18, 13, 432, 3, 6],
+      data: [54, 31, 18, 13, 45, 3, 6],
       backgroundColor: '#C70039 ',
       borderColor: '#C70039 ',
     },
-
   ],
 }
 </script>

@@ -20,6 +20,16 @@ const searchOptions = [
     name: 'Hotplate',
     type: 'device',
   },
+  {
+    id: 5,
+    name: 'Plug 1',
+    type: 'smartplug',
+  },
+  {
+    id: 6,
+    name: 'Smart Plug 2',
+    type: 'smartplug',
+  },
 ]
 </script>
 

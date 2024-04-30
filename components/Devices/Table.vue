@@ -62,12 +62,8 @@ function submitDeviceForm() {
 
 <template>
   <UCard class="h-full">
-    <div class="flex">
-      <USelect v-model="pageSize" class="flex-grow mr-3" :options="[10, 20, 50, 100]" @change="fetchDevices" />
-      <UButton @click="isModalOpen = true">
-        Create
-      </UButton>
-    </div>
+    <PageSizeSelector v-model="pageSize" @change="fetchDevices" />
+    <UDivider class="my-4" />
     <EditableTable :columns="columns" :rows="rows" />
     <UPagination v-model="page" :page-count="pageSize" :total="totalItems" @update:model-value="fetchDevices" />
   </UCard>

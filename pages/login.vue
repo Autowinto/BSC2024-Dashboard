@@ -9,7 +9,7 @@ useHead({
     <UCard>
       <template #header>
         <p class="text-2xl text-center">
-          Power Usage Dashboard
+          Meterpreter Control Panel
         </p>
       </template>
       <div class=" flex flex-col space-y-2">

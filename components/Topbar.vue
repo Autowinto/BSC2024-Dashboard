@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { DropdownItem } from '#ui/types'
+import type { DropdownItem } from '#ui/types';
 
 const dropdownItems: DropdownItem[] | DropdownItem[][] = [
   [
@@ -23,7 +23,7 @@ function toggleColorMode() {
 <template>
   <div class="flex flex-col ">
     <div class="p-4 border-b-2">
-      <div class="text-2xl w-48 inline-block">
+      <div class="text-xl w-48 inline-block">
         Meterpreter
       </div>
       <Search class=" w-1/4 inline-flex" />
@@ -35,7 +35,7 @@ function toggleColorMode() {
         </div>
 
         <UDropdown :items="dropdownItems">
-          <UButton>
+          <UButton variant="outline">
             John Smith
             <Icon name="lucide:chevron-down" />
           </UButton>

@@ -2,11 +2,9 @@
 </script>
 
 <template>
-  <div>
-    <NuxtLayout />
-  </div>
+  <NuxtLayout>
+    <UCard class="h-full">
+      <SmartPlugsTable />
+    </UCard>
+  </NuxtLayout>
 </template>
-
-<style>
-
-</style>

@@ -45,14 +45,8 @@ function handleSave(row: Row) {
 <template>
   <div>
     <UCard class="h-full">
-      <div class="flex">
-        <USelect
-          v-model="pageSize"
-          class="flex-grow mr-3"
-          :options="[10, 20, 50, 100]"
-          @change="fetchAreas"
-        />
-      </div>
+      <PageSizeSelector v-model="pageSize" @change="fetchAreas" />
+      <UDivider class="my-4" />
       <EditableTable
         :page="page"
         :page-size="pageSize"

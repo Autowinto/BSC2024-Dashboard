@@ -5,9 +5,7 @@ useHead({
 </script>
 
 <template>
-  <div>
-    <NuxtLayout>
-      Device here
-    </NuxtLayout>
-  </div>
+  <NuxtLayout>
+    Device here
+  </NuxtLayout>
 </template>

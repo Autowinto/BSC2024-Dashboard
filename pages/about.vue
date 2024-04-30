@@ -5,11 +5,9 @@ useHead({
 </script>
 
 <template>
-  <div id="wrapper">
-    <NuxtLayout>
-      <UCard>
-        This is a power usage dashboard
-      </UCard>
-    </NuxtLayout>
-  </div>
+  <NuxtLayout>
+    <UCard class="h-full">
+      Meterpreter is a power usage and measuring control panel, originally built for Ordbogen A/S
+    </UCard>
+  </NuxtLayout>
 </template>

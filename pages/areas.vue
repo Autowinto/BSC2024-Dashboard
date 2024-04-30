@@ -5,9 +5,7 @@ useHead({
 </script>
 
 <template>
-  <div id="wrapper">
-    <NuxtLayout>
-      <AreasTable />
-    </NuxtLayout>
-  </div>
+  <NuxtLayout>
+    <AreasTable />
+  </NuxtLayout>
 </template>
