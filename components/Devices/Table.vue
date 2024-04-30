@@ -3,10 +3,6 @@ const rows = ref()
 
 const columns = reactive([
   {
-    key: 'id',
-    label: 'ID',
-  },
-  {
     key: 'name',
     label: 'Name',
     editable: true,
