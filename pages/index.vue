@@ -31,16 +31,16 @@ const selectedEnergyComparison = ref(EnergyComparison.Today)
       </UCard>
       <UCard class="col-span-4">
         <span class="text-lg">Current Actual Power Usage</span>
-        <span class="text-lg float-right text-green-500">281.54W</span>
+        <span class="text-lg float-right text-green-500">{{ 256.61 / 1000 }}kWh</span>
       </UCard>
       <UCard class="col-span-4">
         <span class="text-lg">Current Measured Power Usage</span>
-        <span class="text-lg float-right text-green-500">56.61W</span>
+        <span class="text-lg float-right text-green-500">{{ 56.61 / 1000 }}kWh</span>
       </UCard>
     </div>
     <UCard>
       <div class="flex">
-        <USelect v-model="selectedEnergyComparison" class="w-32" :options="energyComparisonOptions" />
+        <USelect v-model="selectedEnergyComparison" :options="energyComparisonOptions" />
         <UButton class="ml-auto" variant="outline">
           Generate Report
         </UButton>
