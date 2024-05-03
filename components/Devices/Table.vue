@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Row } from '../EditableTable.vue';
+
 const rows = ref()
 
 const columns = reactive([
@@ -13,7 +15,15 @@ const columns = reactive([
   },
   {
     key: 'measuredWattage',
-    label: 'Measured Wattage',
+    label: 'Watts',
+  },
+  {
+    key: 'hoursActiveWeek',
+    label: 'Weekly Active Hours',
+  },
+  {
+    key: 'kiloWattHours',
+    label: 'Daily kWh',
   },
 ])
 
@@ -26,10 +36,17 @@ function fetchDevices() {
     .then((response) => {
       totalItems.value = response.data.totalItems
       rows.value = response.data.items
+      calculateKiloWattHours()
     })
     .catch((error) => {
       console.error(error)
     })
+}
+
+function calculateKiloWattHours() {
+  rows.value.forEach((row: Row) => {
+    row.kiloWattHours = (row.measuredWattage / 1000) * row.hoursActiveWeek
+  })
 }
 
 onMounted(() => {

@@ -20,6 +20,53 @@ const energyComparisonOptions = [
 ]
 
 const selectedEnergyComparison = ref(EnergyComparison.Today)
+
+function generateReport() {
+  console.log('Should generate report')
+}
+
+let data = reactive({
+  external: {
+    areas: [
+      { id: '1', data: ['8'] },
+    ],
+  },
+})
+
+async function fetchPowerUsageData() {
+  data = (await useApi().get('/powerUsage', { params: { aggregation: 'Hour' } })).data
+  calculateDataPoints()
+}
+
+fetchPowerUsageData()
+
+function calculateDataPoints() {
+  const areas = data.external.areas
+  const sums = []
+  for (let i = 0; i < areas[0].data.length; i++) {
+    let sum = 0
+
+    for (const area of areas)
+      sum += Number.parseFloat(area.data[i])
+
+    sums.push(sum)
+  }
+  return sums
+}
+
+const energyChartData = computed(() => {
+  return {
+    labels: calculateDataPoints().map((_, i) => i + 1),
+    datasets: [
+      {
+        label: 'Energinet',
+        data: calculateDataPoints(),
+        backgroundColor: '#00FFFF',
+        borderColor: '#00FFFF',
+      },
+    ],
+  }
+})
 </script>
 
 <template>
@@ -31,7 +78,7 @@ const selectedEnergyComparison = ref(EnergyComparison.Today)
       </UCard>
       <UCard class="col-span-4">
         <span class="text-lg">Current Actual Power Usage</span>
-        <span class="text-lg float-right text-green-500">{{ 256.61 / 1000 }}kWh</span>
+        <span class="text-lg float-right text-green-500">{{ data.external.total }}kWh</span>
       </UCard>
       <UCard class="col-span-4">
         <span class="text-lg">Current Measured Power Usage</span>
@@ -41,12 +88,13 @@ const selectedEnergyComparison = ref(EnergyComparison.Today)
     <UCard>
       <div class="flex">
         <USelect v-model="selectedEnergyComparison" :options="energyComparisonOptions" />
-        <UButton class="ml-auto" variant="outline">
+        <!-- <USelectMenu v-model="selectedMeters" multiple class="ml-2" :options="meterOptions" /> -->
+        <UButton class="ml-auto" variant="outline" @click="generateReport">
           Generate Report
         </UButton>
       </div>
       <UDivider class="my-4" />
-      <EnergyComparisonChart />
+      <EnergyComparisonChart :data="energyChartData" />
     </UCard>
   </NuxtLayout>
 </template>
