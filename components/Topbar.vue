@@ -26,7 +26,6 @@ function toggleColorMode() {
       <div class="text-xl w-48 inline-block">
         Meterpreter
       </div>
-      <Search class=" w-1/4 inline-flex" />
       <div class="inline-block-flex space-x-4 float-right">
         <div class="inline">
           <UButton variant="ghost" color="black" @click="toggleColorMode">
