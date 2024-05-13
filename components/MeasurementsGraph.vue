@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { ChartData, ChartOptions } from 'chart.js';
-import { Line } from 'vue-chartjs';
 
 interface Props {
   device: string
@@ -52,5 +51,4 @@ const chartOptions: ChartOptions = {
 </script>
 
 <template>
-  <Line :data="chartData" :options="chartOptions" />
 </template>
