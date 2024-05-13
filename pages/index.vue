@@ -71,30 +71,25 @@ const energyChartData = computed(() => {
 
 <template>
   <NuxtLayout>
-    <div class="grid grid-cols-12 space-x-3 mb-3">
-      <UCard class="col-span-4">
-        <span class="text-lg">Active Measuring Devices</span>
-        <span class="text-lg float-right">0/2</span>
+    <div class="grid grid-cols-4 gap-3 mb-3">
+      <InfoCard class="" title="Active Devices" value="Value" icon="lucide:plug-zap" />
+      <InfoCard class="" title="Current Wattage" value="Value" icon="lucide:zap" />
+    </div>
+    <div class="grid grid-cols-12 gap-3">
+      <UCard class="col-span-8">
+        <div class="flex">
+          <USelect v-model="selectedEnergyComparison" :options="energyComparisonOptions" />
+          <!-- <USelectMenu v-model="selectedMeters" multiple class="ml-2" :options="meterOptions" /> -->
+          <UButton class="ml-auto" variant="outline" @click="generateReport">
+            Generate Report
+          </UButton>
+        </div>
+        <UDivider class="my-4" />
+        <EnergyComparisonChart :data="energyChartData" />
       </UCard>
       <UCard class="col-span-4">
-        <span class="text-lg">Current Actual Power Usage</span>
-        <span class="text-lg float-right text-green-500">{{ data.external.total }}kWh</span>
-      </UCard>
-      <UCard class="col-span-4">
-        <span class="text-lg">Current Measured Power Usage</span>
-        <span class="text-lg float-right text-green-500">{{ 56.61 / 1000 }}kWh</span>
+        Card
       </UCard>
     </div>
-    <UCard>
-      <div class="flex">
-        <USelect v-model="selectedEnergyComparison" :options="energyComparisonOptions" />
-        <!-- <USelectMenu v-model="selectedMeters" multiple class="ml-2" :options="meterOptions" /> -->
-        <UButton class="ml-auto" variant="outline" @click="generateReport">
-          Generate Report
-        </UButton>
-      </div>
-      <UDivider class="my-4" />
-      <EnergyComparisonChart :data="energyChartData" />
-    </UCard>
   </NuxtLayout>
 </template>

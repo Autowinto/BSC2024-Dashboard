@@ -3,6 +3,8 @@ import type { Row } from '../EditableTable.vue';
 
 const rows = ref()
 
+const router = useRouter()
+
 const columns = reactive([
   {
     key: 'name',
@@ -12,6 +14,7 @@ const columns = reactive([
   {
     key: 'expectedWattage',
     label: 'Expected Wattage',
+    editable: true,
   },
   {
     key: 'measuredWattage',
@@ -20,6 +23,7 @@ const columns = reactive([
   {
     key: 'hoursActiveWeek',
     label: 'Weekly Active Hours',
+    editable: true,
   },
   {
     key: 'kiloWattHours',
@@ -51,19 +55,35 @@ function calculateKiloWattHours() {
 
 onMounted(() => {
   fetchDevices()
+  fetchCategories()
 })
+
+const categoryOptions = ref([])
+
+async function fetchCategories() {
+  const res = await useApi().get('/deviceCategories')
+
+  categoryOptions.value = res.data.items.map((category: any) => ({
+    label: category.name,
+    id: category.id,
+  }))
+}
 
 const isModalOpen = ref(false)
 
 const baseState = {
   name: '',
   expectedWattage: 0,
+  hoursActiveWeek: 0,
+  categoryId: undefined,
   description: '',
 }
 
 const state = ref({
   name: '',
   expectedWattage: 0,
+  hoursActiveWeek: 0,
+  categoryId: undefined,
   description: '',
 })
 
@@ -83,6 +103,11 @@ function cancelForm() {
   isModalOpen.value = false
   state.value = baseState
 }
+
+function navigateToDevicePage(event) {
+  console.log(event)
+  router.push(`/devices/${event.id}`)
+}
 </script>
 
 <template>
@@ -94,7 +119,7 @@ function cancelForm() {
       </UButton>
     </div>
     <UDivider class="my-4" />
-    <EditableTable :columns="columns" :rows="rows" />
+    <EditableTable :columns="columns" :rows="rows" clickable @row:clicked="navigateToDevicePage" />
     <UPagination v-model="page" :page-count="pageSize" :total="totalItems" @update:model-value="fetchDevices" />
   </UCard>
   <UModal v-model="isModalOpen">
@@ -102,12 +127,22 @@ function cancelForm() {
       <template #header>
         <span>Add Device</span>
       </template>
-      <UForm :state="state" @submit="submitDeviceForm">
+      <UForm :state="state" class="space-y-2" @submit="submitDeviceForm">
         <UFormGroup label="Name" model="name">
           <UInput v-model="state.name" />
         </UFormGroup>
+        <UFormGroup label="Category" model="name">
+          <USelectMenu v-model="state.categoryId" value-attribute="id" searchable :options="categoryOptions" />
+        </UFormGroup>
         <UFormGroup label="Expected Wattage" model="name">
           <UInput v-model="state.expectedWattage" type="number" inputmode="decimal" step="0.01">
+            <template #trailing>
+              <span class="text-xs text-gray-400">W</span>
+            </template>
+          </UInput>
+        </UFormGroup>
+        <UFormGroup label="Expected Active Weekly Hours" model="name">
+          <UInput v-model="state.hoursActiveWeek" type="number" inputmode="decimal" step="0.01">
             <template #trailing>
               <span class="text-xs text-gray-400">W</span>
             </template>
