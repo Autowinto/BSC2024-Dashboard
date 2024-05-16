@@ -3,7 +3,7 @@
 
 <template>
   <NuxtLayout>
-    <UCard class="h-full">
+    <UCard  class="h-full ">
       <SmartPlugsTable />
     </UCard>
   </NuxtLayout>

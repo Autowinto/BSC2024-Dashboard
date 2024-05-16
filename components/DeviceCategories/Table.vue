@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Row } from '../EditableTable.vue';
+
 const rows = ref([])
 
 const pageSize = ref(10)
@@ -21,7 +23,7 @@ onMounted(() => {
 })
 
 const isModalOpen = ref(false)
-const columns = [{ key: 'name', label: 'Name' }]
+const columns = [{ key: 'name', label: 'Name', editable: true, deletable: true}]
 
 const baseState = {
   name: '',
@@ -38,6 +40,24 @@ function submitDeviceForm() {
     useToast().add({ title: 'Error', description: 'Failed to add device category', color: 'red' })
   })
 }
+
+function handleSave(row: Row) {
+  useApi().put(`deviceCategories/${row.id}`, row).then(() => {
+    fetchCategories()
+  }).catch((error) => {
+    console.error(error)
+    useToast().add({ title: 'Error', description: 'Failed to save device category', color: 'red' })
+  })
+}
+
+function handleDelete(row: Row) {
+  useApi().delete(`deviceCategories/${row.id}`).then(() => {
+    fetchCategories()
+  }).catch((error) => {
+    console.error(error)
+    useToast().add({ title: 'Error', description: 'Failed to delete device category', color: 'red' })
+  })
+}
 </script>
 
 <template>
@@ -48,7 +68,7 @@ function submitDeviceForm() {
     </UButton>
   </div>
   <UDivider class="my-4" />
-  <EditableTable :columns="columns" :rows="rows" />
+  <EditableTable :columns="columns" :rows="rows" @row:save="handleSave" @row:delete="handleDelete"/>
   <UPagination v-model="currentPage" :page-count="pageSize" :total="totalItems" @update:model-value="fetchCategories" />
   <UModal v-model="isModalOpen">
     <UCard>

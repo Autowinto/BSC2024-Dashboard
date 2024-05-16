@@ -65,6 +65,9 @@ const chartOptions: ChartOptions = {
     y: {
       beginAtZero: true,
     },
+    x: {
+      display: false
+    }
   },
 }
 </script>

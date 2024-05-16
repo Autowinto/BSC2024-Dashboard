@@ -10,6 +10,7 @@ const columns = reactive([
     key: 'name',
     label: 'Name',
     editable: true,
+    deletable: true,
   },
   {
     key: 'expectedWattage',
@@ -19,15 +20,18 @@ const columns = reactive([
   {
     key: 'measuredWattage',
     label: 'Watts',
+    type: 'number'
   },
   {
     key: 'hoursActiveWeek',
     label: 'Weekly Active Hours',
+    type: 'number',
     editable: true,
   },
   {
     key: 'kiloWattHours',
     label: 'Daily kWh',
+    type: 'number'
   },
 ])
 

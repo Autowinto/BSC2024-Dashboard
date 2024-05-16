@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { format, subDays } from 'date-fns';
 import Papa from 'papaparse';
 
 useHead({
@@ -61,7 +62,11 @@ function downloadFile(data: any, fileType: 'csv' | 'json' | 'xlsx') {
 
 async function fetchPowerUsageData() {
   try {
-    data = await (await useApi().get('/powerUsage', { params: { aggregation: 'Hour' } })).data
+    data = await (await useApi().get('/powerUsage', { params: 
+      { 
+        aggregation: 'Hour', 
+        dateFrom: format(dateFrom.value, 'yyyy-MM-dd'), 
+        dateTo: format(dateTo.value, 'yyyy-MM-dd')} })).data
     calculateDataPoints()
   }
   catch (error) {
@@ -70,7 +75,10 @@ async function fetchPowerUsageData() {
   }
 }
 
-fetchPowerUsageData()
+onMounted(() => {
+
+  fetchPowerUsageData()
+})
 
 // FIXME: This does not calculate correctly
 function calculateDataPoints() {
@@ -110,6 +118,16 @@ const exportDropdownItems = [
     { label: 'Export to JSON', click: generateJSON },
   ],
 ]
+
+const dateFrom = ref(subDays(new Date(), 1))
+const dateTo = ref(new Date())
+
+function handleDateChange(start: Date, end: Date) {
+  dateFrom.value = start
+  dateTo.value = end
+  fetchPowerUsageData()
+}
+
 </script>
 
 <template>
@@ -121,7 +139,8 @@ const exportDropdownItems = [
     <div class="grid grid-cols-12 gap-3">
       <UCard class="col-span-12">
         <div class="flex">
-          <USelect v-model="selectedEnergyComparison" :options="energyComparisonOptions" />
+          <DateRangePicker @change="handleDateChange"></DateRangePicker>
+          <!-- <USelect v-model="" :options="energyComparisonOptions" /> -->
           <UDropdown :items="exportDropdownItems" class="ml-auto">
             <UButton variant="outline">
               Export
@@ -133,5 +152,6 @@ const exportDropdownItems = [
         <EnergyComparisonChart :data="energyChartData" />
       </UCard>
     </div>
+    
   </NuxtLayout>
 </template>

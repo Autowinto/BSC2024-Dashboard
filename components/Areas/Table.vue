@@ -21,7 +21,7 @@ function fetchAreas() {
     })
     .catch((error) => {
       console.error(error)
-      useToast().add({ title: 'Error', description: 'Failed to fetch areas', color: 'red' }
+      useToast().add({ title: 'Error', description: 'Failed to fetch areas', color: 'red' })
     })
 }
 
@@ -30,7 +30,7 @@ onMounted(() => {
 })
 
 function handleSave(row: Row) {
-  useApi().put(`/areas/${row.id}`, row)
+  useApi().put(`/areas`, row)
     .then(() => {
       fetchAreas()
     })
@@ -39,6 +39,23 @@ function handleSave(row: Row) {
       console.error(error)
     })
 }
+
+function importAreas() {
+  useApi().get('/areas/load')
+    .then(() => {
+      fetchAreas()
+    })
+    .catch((error) => {
+      console.error(error)
+      useToast().add({ title: 'Error', description: 'Failed to import areas', color: 'red' })
+    })
+
+}
+
+
+function navigateToAreaPage(row: Row) {
+  useRouter().push(`/areas/${row.id}`)
+}
 </script>
 
 <template>
@@ -46,17 +63,19 @@ function handleSave(row: Row) {
     <UCard class="h-full">
       <div class="flex">
         <PageSizeSelector v-model="pageSize" @change="fetchAreas" />
-        <UButton class="ml-auto" @click="fetchAreas">
+        <UButton variant="outline" class="ml-auto" @click="importAreas">
           Import Areas
         </UButton>
       </div>
       <UDivider class="my-4" />
       <EditableTable
+        clickable
+        @row:clicked="navigateToAreaPage"
         :page="page"
         :page-size="pageSize"
         :columns="columns"
         :rows="rows"
-        @save="handleSave"
+        @row:save="handleSave"
       />
       <UPagination
         v-model="page"
