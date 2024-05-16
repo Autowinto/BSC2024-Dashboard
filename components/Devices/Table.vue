@@ -43,6 +43,7 @@ function fetchDevices() {
       calculateKiloWattHours()
     })
     .catch((error) => {
+      useToast().add({ title: 'Error', description: 'Failed to fetch devices', color: 'red' })
       console.error(error)
     })
 }
@@ -67,6 +68,9 @@ async function fetchOptions() {
       label: category.name,
       id: category.id,
     }))
+  }).catch((error) => {
+    console.error(error)
+    useToast().add({ title: 'Error', description: 'Failed to fetch device categories', color: 'red' })
   })
 
   useApi().get('/areas').then((res) => {
@@ -74,6 +78,9 @@ async function fetchOptions() {
       label: area.name,
       id: area.id,
     }))
+  }).catch((error) => {
+    console.error(error)
+    useToast().add({ title: 'Error', description: 'Failed to fetch areas', color: 'red' })
   })
 }
 
@@ -105,6 +112,7 @@ function submitDeviceForm() {
       isModalOpen.value = false
     })
     .catch((error) => {
+      useToast().add({ title: 'Error', description: 'Failed to add device', color: 'red' })
       console.error(error)
     })
 }

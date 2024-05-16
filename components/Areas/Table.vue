@@ -21,6 +21,7 @@ function fetchAreas() {
     })
     .catch((error) => {
       console.error(error)
+      useToast().add({ title: 'Error', description: 'Failed to fetch areas', color: 'red' }
     })
 }
 
@@ -34,6 +35,7 @@ function handleSave(row: Row) {
       fetchAreas()
     })
     .catch((error) => {
+      useToast().add({ title: 'Error', description: 'Failed to save area', color: 'red' })
       console.error(error)
     })
 }

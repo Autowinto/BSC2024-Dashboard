@@ -60,8 +60,14 @@ function downloadFile(data: any, fileType: 'csv' | 'json' | 'xlsx') {
 }
 
 async function fetchPowerUsageData() {
-  data = (await useApi().get('/powerUsage', { params: { aggregation: 'Hour' } })).data
-  calculateDataPoints()
+  try {
+    data = await (await useApi().get('/powerUsage', { params: { aggregation: 'Hour' } })).data
+    calculateDataPoints()
+  }
+  catch (error) {
+    console.error(error)
+    useToast().add({ title: 'Error', description: 'Failed to fetch power usage data', color: 'red' })
+  }
 }
 
 fetchPowerUsageData()

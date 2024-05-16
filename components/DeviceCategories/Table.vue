@@ -33,6 +33,9 @@ function submitDeviceForm() {
   useApi().post('deviceCategories', state.value).then(() => {
     isModalOpen.value = false
     fetchCategories()
+  }).catch((error) => {
+    console.error(error)
+    useToast().add({ title: 'Error', description: 'Failed to add device category', color: 'red' })
   })
 }
 </script>

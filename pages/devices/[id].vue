@@ -8,8 +8,14 @@ const deviceId = route.params.id
 const deviceName = ref('')
 
 async function fetchDevices() {
-  const { data } = await useApi().get(`/devices/${route.params.id}`)
-  deviceName.value = data.name
+  try {
+    const { data } = await useApi().get(`/devices/${route.params.id}`)
+    deviceName.value = data.name
+  }
+  catch (error) {
+    console.error(error)
+    useToast().add({ title: 'Error', description: 'Failed to fetch devices', color: 'red' })
+  }
 }
 
 onMounted(() => {
@@ -25,12 +31,17 @@ const measurements = ref([
 ])
 
 async function fetchMeasurements() {
-  const data = await useApi().get(`/devices/${deviceId}/measurements`)
-  console.log(data)
-  measurements.value = data.data.items.map((item: any) => ({
-    wattage: item.wattage,
-    timeMeasured: item.timeMeasured,
-  }))
+  try {
+    const data = await useApi().get(`/devices/${deviceId}/measurements`)
+    measurements.value = data.data.items.map((item: any) => ({
+      wattage: item.wattage,
+      timeMeasured: item.timeMeasured,
+    }))
+  }
+  catch (error) {
+    console.error(error)
+    useToast().add({ title: 'Error', description: 'Failed to fetch measurements', color: 'red' })
+  }
 
   setTimeout(fetchMeasurements, 10000)
 }
