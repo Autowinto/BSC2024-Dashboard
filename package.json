@@ -11,7 +11,8 @@
     "prepare": "husky",
     "test": "vitest --run",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "start": "node .output/server/index.mjs"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.1.184",
