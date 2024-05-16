@@ -10,6 +10,9 @@ function fetchCategories() {
     { pageSize: pageSize.value, page: currentPage.value } }).then((response) => {
     rows.value = response.data.items
     totalItems.value = response.data.totalItems
+  }).catch((error) => {
+    console.error(error)
+    useToast().add({ title: 'Error', description: 'Failed to fetch device categories', color: 'red' })
   })
 }
 

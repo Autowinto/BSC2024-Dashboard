@@ -60,8 +60,12 @@ const chartOptions: ChartOptions = {
 
 <template>
   <NuxtLayout>
-    <UCard class="h-full">
-      {{ deviceName }}
+    <UCard>
+      <template #header>
+        <span>
+          History
+        </span>
+      </template>
       <Line :data="chartData" :options="chartOptions" />
     </UCard>
   </NuxtLayout>

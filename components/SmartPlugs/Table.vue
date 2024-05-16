@@ -25,11 +25,15 @@ const columns = [{
 }]
 
 async function fetchDevices() {
-  const deviceData = await useApi().get('/devices')
-  columns[2].selectOptions = deviceData.data.items.map((device: any) => ({
-    label: device.name,
-    value: device.id,
-  }))
+  useApi().get('/devices').then((deviceData) => {
+    columns[2].selectOptions = deviceData.data.items.map((device: any) => ({
+      label: device.name,
+      value: device.id,
+    }))
+  }).catch((error) => {
+    console.error(error)
+    useToast().add({ title: 'Error', description: 'Failed to fetch devices', color: 'red' })
+  })
 }
 
 onMounted(() => {

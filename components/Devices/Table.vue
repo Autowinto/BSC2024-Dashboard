@@ -55,18 +55,26 @@ function calculateKiloWattHours() {
 
 onMounted(() => {
   fetchDevices()
-  fetchCategories()
+  fetchOptions()
 })
 
 const categoryOptions = ref([])
+const areaOptions = ref([])
 
-async function fetchCategories() {
-  const res = await useApi().get('/deviceCategories')
+async function fetchOptions() {
+  useApi().get('/deviceCategories').then((res) => {
+    categoryOptions.value = res.data.items.map((category: any) => ({
+      label: category.name,
+      id: category.id,
+    }))
+  })
 
-  categoryOptions.value = res.data.items.map((category: any) => ({
-    label: category.name,
-    id: category.id,
-  }))
+  useApi().get('/areas').then((res) => {
+    areaOptions.value = res.data.items.map((area: any) => ({
+      label: area.name,
+      id: area.id,
+    }))
+  })
 }
 
 const isModalOpen = ref(false)
@@ -75,6 +83,7 @@ const baseState = {
   name: '',
   expectedWattage: 0,
   hoursActiveWeek: 0,
+  area: undefined,
   categoryId: undefined,
   description: '',
 }
@@ -83,6 +92,7 @@ const state = ref({
   name: '',
   expectedWattage: 0,
   hoursActiveWeek: 0,
+  area: undefined,
   categoryId: undefined,
   description: '',
 })
@@ -105,7 +115,6 @@ function cancelForm() {
 }
 
 function navigateToDevicePage(event) {
-  console.log(event)
   router.push(`/devices/${event.id}`)
 }
 </script>
@@ -133,6 +142,9 @@ function navigateToDevicePage(event) {
         </UFormGroup>
         <UFormGroup label="Category" model="name">
           <USelectMenu v-model="state.categoryId" value-attribute="id" searchable :options="categoryOptions" />
+        </UFormGroup>
+        <UFormGroup label="Area" model="name">
+          <USelectMenu v-model="state.area" value-attribute="id" searchable :options="areaOptions" />
         </UFormGroup>
         <UFormGroup label="Expected Wattage" model="name">
           <UInput v-model="state.expectedWattage" type="number" inputmode="decimal" step="0.01">
