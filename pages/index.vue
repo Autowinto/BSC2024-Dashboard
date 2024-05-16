@@ -66,22 +66,8 @@ async function fetchPowerUsageData() {
 
 fetchPowerUsageData()
 
+// FIXME: This does not calculate correctly
 function calculateDataPoints() {
-
-}
-
-const energyChartData = {
-  // labels: dataPoints.value.map((_, i) => i + 1),
-  datasets: [
-    {
-      label: 'Energinet',
-      data: [],
-      backgroundColor: '#00FFFF',
-      borderColor: '#00FFFF',
-    },
-  ],
-}
-const dataPoints = computed(() => {
   const areas = data.external.areas
   const sums = []
   for (let i = 0; i < areas[0].data.length; i++) {
@@ -92,8 +78,24 @@ const dataPoints = computed(() => {
 
     sums.push(sum)
   }
-  energyChartData.datasets[0].data = sums
   return sums
+}
+
+const energyChartData = computed(() => {
+  const dataPoints = calculateDataPoints()
+  const chartData = {
+    labels: dataPoints.map((_, i) => i + 1),
+    datasets: [
+      {
+        label: 'Energinet',
+        data: dataPoints,
+        backgroundColor: '#00FFFF',
+        borderColor: '#00FFFF',
+      },
+    ],
+  }
+  console.log(chartData)
+  return chartData
 })
 
 const exportDropdownItems = [
