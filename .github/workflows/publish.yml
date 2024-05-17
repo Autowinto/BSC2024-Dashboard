@@ -38,8 +38,8 @@ jobs:
           file: ${{ env.DOCKERFILE_PATH }}
           push: true
           tags: |
-            ghcr.io/${{ env.REPO }}/${{ env.IMAGE_NAME }}:latest
-            ghcr.io/${{ env.REPO }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+            ghcr.io/meterpreter-frontend:latest
+            ghcr.io/meterpreter-frontend:${{ github.sha }}
 
       - name: Logout from GHCR
         run: docker logout ghcr.io
