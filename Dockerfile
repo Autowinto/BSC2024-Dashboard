@@ -21,5 +21,8 @@ RUN pnpm run build
 # Expose the port that the application will run on
 EXPOSE 3000
 
+# Define ENV variables
+ENV API_URL=backend
+
 # Start the application
-CMD [ "npm", "start" ]
+CMD [ "pnpm", "start" ]

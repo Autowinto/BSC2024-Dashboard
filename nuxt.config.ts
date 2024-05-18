@@ -8,6 +8,6 @@ export default defineNuxtConfig({
     port: 8080,
   },
   runtimeConfig: {
-    ENERGINET_REFRESH_TOKEN: process.env.ENERGINET_REFRESH_TOKEN,
+    API_URL: process.env.API_URL ?? '127.0.0.1:3000',
   },
 })
