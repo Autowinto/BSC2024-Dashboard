@@ -22,7 +22,7 @@ RUN pnpm run build
 EXPOSE 3000
 
 # Define ENV variables
-ENV API_URL=backend
+ENV API_URL=http://localhost:1337
 
 # Start the application
 CMD [ "pnpm", "start" ]
