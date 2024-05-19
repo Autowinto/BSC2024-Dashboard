@@ -19,10 +19,11 @@ COPY . .
 RUN pnpm run build
 
 # Expose the port that the application will run on
-EXPOSE 3000
+EXPOSE 8080
 
 # Define ENV variables
 ENV API_URL=http://localhost:1337
+ENV PORT=8080
 
 # Start the application
 CMD [ "pnpm", "start" ]
