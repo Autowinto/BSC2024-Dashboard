@@ -94,7 +94,6 @@ const baseState = {
   name: '',
   expectedWattage: 0,
   hoursActiveWeek: 0,
-  area: undefined,
   categoryId: undefined,
   description: '',
 }
@@ -103,7 +102,6 @@ const state = ref({
   name: '',
   expectedWattage: 0,
   hoursActiveWeek: 0,
-  area: undefined,
   categoryId: undefined,
   description: '',
 })
@@ -129,6 +127,17 @@ function cancelForm() {
 function navigateToDevicePage(event) {
   router.push(`/devices/${event.id}`)
 }
+
+function handleDelete(row: Row) {
+  useApi().delete(`/devices/${row.id}`)
+    .then(() => {
+      fetchDevices()
+    })
+    .catch((error) => {
+      useToast().add({ title: 'Error', description: 'Failed to delete device', color: 'red' })
+      console.error(error)
+    })
+}
 </script>
 
 <template>
@@ -140,7 +149,7 @@ function navigateToDevicePage(event) {
       </UButton>
     </div>
     <UDivider class="my-4" />
-    <EditableTable :columns="columns" :rows="rows" clickable @row:clicked="navigateToDevicePage" />
+    <EditableTable :columns="columns" :rows="rows" @row:delete="handleDelete" clickable @row:clicked="navigateToDevicePage" />
     <UPagination v-model="page" :page-count="pageSize" :total="totalItems" @update:model-value="fetchDevices" />
   </UCard>
   <UModal v-model="isModalOpen">
@@ -154,9 +163,6 @@ function navigateToDevicePage(event) {
         </UFormGroup>
         <UFormGroup label="Category" model="name">
           <USelectMenu v-model="state.categoryId" value-attribute="id" searchable :options="categoryOptions" />
-        </UFormGroup>
-        <UFormGroup label="Area" model="name">
-          <USelectMenu v-model="state.area" value-attribute="id" searchable :options="areaOptions" />
         </UFormGroup>
         <UFormGroup label="Expected Wattage" model="name">
           <UInput v-model="state.expectedWattage" type="number" inputmode="decimal" step="0.01">
